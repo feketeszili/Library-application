@@ -22,6 +22,10 @@ public class Book implements java.io.Serializable {
         this.accessable = accessable;
     }
 
+    public Book() {
+
+    }
+
     public void setId(int id) {
         this.id = id;
     }

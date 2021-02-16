@@ -1,8 +1,12 @@
 package konyvtar;
 
 import konyvtar.book.Book;
+import konyvtar.lists.BookList;
+
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.util.Random;
 
 public class Main {
 
@@ -38,7 +42,7 @@ public class Main {
         }
        */
 //------------------reading----------------------
-        Book book = null;
+    /*    Book book = null;
         try {
             FileInputStream fileIn = new FileInputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\tavkozles.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -59,5 +63,16 @@ public class Main {
         System.out.println(book.getPublisher());
         System.out.println(book.getPublishedDate());
         System.out.println(book.getKeywords());
+    */
+        BookList bookList = new BookList();
+        Book book = null;
+        Book book2 = null;
+        Book book3 = null;
+        bookList.addBooktoList(book);
+        bookList.addBooktoList(book2);
+        bookList.addBooktoList(book3);
+        bookList.displayTheList();
+
     }
+
 }
