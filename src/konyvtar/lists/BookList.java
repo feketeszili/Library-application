@@ -50,6 +50,7 @@ public class BookList implements java.io.Serializable {
 
     public void addBooktoList(Book book){
         this.bookList.add(book);
+        int i;
     }
 
     /* Deletes one element(book) by his own id.
