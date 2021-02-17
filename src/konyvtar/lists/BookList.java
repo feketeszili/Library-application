@@ -1,7 +1,7 @@
 package konyvtar.lists;
 import konyvtar.book.Book;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,15 +11,18 @@ public class BookList implements java.io.Serializable {
 
     public BookList() {
 
+        // array object that can hold 20 reference,
+        // books doesn't exists yet, this array is empty
+        // so i have to create the books in the loop
         Book [] books = new Book[20];
-
-        // creates 20 books with random attributes
+        bookList = new ArrayList<>();
         for(int i = 0;  i < 20 ; ++i){
             // Have to create an arraylist to save keywords in it
-            ArrayList<String> keywordList = new ArrayList();
+            ArrayList<String> keywordList = new ArrayList<>();
             keywordList.add(randomGenerateString());
             keywordList.add(randomGenerateString());
-            //adding values for attributes
+
+            books[i] = new Book();
             books[i].id = i;
             books[i].title = randomGenerateString();
             books[i].author = randomGenerateString();
@@ -36,20 +39,17 @@ public class BookList implements java.io.Serializable {
     public String randomGenerateString(){
         byte[] array = new byte[7]; // length is bounded by 7
         new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
-
-        return generatedString;
+        return new String(array, StandardCharsets.UTF_8);
     }
 
     public int randomGenerateNumber(){
         Random rand = new Random();
-        int randNr = rand.nextInt(1000);
-
-        return randNr;
+        return rand.nextInt(1000);
     }
 
     public void addBooktoList(Book book){
         this.bookList.add(book);
+
     }
 
     /* Deletes one element(book) by his own id.
@@ -65,5 +65,16 @@ public class BookList implements java.io.Serializable {
             if (bookList.get(i).getId() == id )
                 bookList.remove(i);
         }
+    }
+
+    public void displayTheList(){
+        int i;
+        for( i = 0 ; i < bookList.size() ; ++i) {
+            System.out.println(bookList.get(i));
+        }
+        System.out.println(i);
+        //for (Book book : bookList) {
+          //  System.out.println(book);
+        //}
     }
 }
