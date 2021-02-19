@@ -15,7 +15,7 @@ public class BookList implements java.io.Serializable {
         // books doesn't exists yet, this array is empty
         // so i have to create the books in the loop
         Book [] books = new Book[20];
-        bookList = new ArrayList<>();
+        this.bookList = new ArrayList<>();
         for(int i = 0;  i < 20 ; ++i){
             // Have to create an arraylist to save keywords in it
             ArrayList<String> keywordList = new ArrayList<>();
@@ -59,14 +59,21 @@ public class BookList implements java.io.Serializable {
     * with the input id, if it's similar it's gonna be
     * deleted. And the i+1 book moves back to i position
     * where we deleted the specified book.
+    * If i won't use BREAK the function will crash, maybe
+    * because in the first point the lists size is bigger,
+    * but after deletion, however, it is one smaller and
+    * still works with the original value
     */
     public void deleteBookFromList(int id){
         for( int i = 0 ; i < bookList.size() ; ++i){
-            if (bookList.get(i).getId() == id )
+            if (bookList.get(i).getId() == id ) {
                 bookList.remove(i);
+                break;
+            }
         }
     }
-
+    
+//ezt ujrairni + egy countert berakni, hogy hány konyv van benne
     public void displayTheList(){
         int i;
         for( i = 0 ; i < bookList.size() ; ++i) {

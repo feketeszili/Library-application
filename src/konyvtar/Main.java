@@ -72,7 +72,10 @@ public class Main {
         bookList.addBooktoList(book2);
         bookList.addBooktoList(book3);
         bookList.displayTheList();
-
+        bookList.deleteBookFromList(2);
+        bookList.displayTheList();
+//konyvtar.book.Book@27d6c5e0
+//konyvtar.book.Book@4f3f5b24
     }
 
 }
