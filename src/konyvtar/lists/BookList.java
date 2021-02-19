@@ -119,8 +119,61 @@ public class BookList implements java.io.Serializable {
                 name = book.getTitle();
             }
         }
-        System.out.println("The searched books name: " + name);
+        System.out.println("The searched book name: " + name);
         return name;
+    }
+
+    public String getBookAuthorFromList(int id) {
+        String name = null;
+        for (Book book : bookList) {
+            if (book.getId() == id) {
+                name = book.getAuthor();
+            }
+        }
+        System.out.println("The searched book author: " + name);
+        return name;
+    }
+
+    public String getBookPublisherFromList(int id) {
+        String name = null;
+        for (Book book : bookList) {
+            if (book.getId() == id) {
+                name = book.getPublisher();
+            }
+        }
+        System.out.println("The searched book publisher: " + name);
+        return name;
+    }
+
+    public int getBookPublishedDateFromList(int id) {
+        int publishedDate = 0;
+        for (Book book : bookList) {
+            if (book.getId() == id) {
+                publishedDate = book.getPublishedDate();
+            }
+        }
+        System.out.println("The searched book published date: " + publishedDate);
+        return publishedDate;
+    }
+
+    public ArrayList<String> getBookKeywordsFromList(int id){
+        ArrayList<String> keywords = new ArrayList();
+        for(Book book : bookList){
+            if(book.getId() == id){
+                keywords = book.getKeywords();
+            }
+        }
+        System.out.println("The searched book keywords: " + keywords);
+        return keywords;
+    }
+
+    public void isBookAccessableFromList(int id){
+        boolean right = false;
+        for(Book book : bookList){
+            if(book.getId() == id){
+                right = book.isAccessable();
+            }
+        }
     }
 
     public void writeIntoFile(){

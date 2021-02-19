@@ -82,14 +82,13 @@ public class Main {
 
          */
         //------ testing the changing the name of book from the list------
-        //String name = bookList.getBookNameFromList(1);
-        //bookList.changeDataOfBook(name);
+        bookList.changeDataOfBook(bookList.getBookNameFromList(1));
 
         //-------write into a file with method---------
         //bookList.writeIntoFile();
 
         //-------read from file---------
-        bookList.readFromFile();
+        //bookList.readFromFile();
 
     }
 
