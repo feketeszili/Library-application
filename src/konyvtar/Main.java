@@ -66,23 +66,31 @@ public class Main {
         System.out.println(book.getKeywords());
     */
         BookList bookList = new BookList();
-        //testing the add method
+        //--------testing the add method---------
         /*Book book = null;
         Book book2 = null;
         Book book3 = null;
         bookList.addBooktoList(book);
         bookList.addBooktoList(book2);
-        bookList.addBooktoList(book3);*/
-        // testing the delete method
+        bookList.addBooktoList(book3);
+        */
+        //--------- testing the delete method--------
+        /*
         bookList.displayTheList();
         bookList.deleteBookFromList(2);
         bookList.displayTheList();
-        // testing the changing the name of book from the list
-        String name = bookList.getBookNameFromList(1);
-        bookList.changeDataOfBook(name);
 
-//konyvtar.book.Book@27d6c5e0
-//konyvtar.book.Book@4f3f5b24
+         */
+        //------ testing the changing the name of book from the list------
+        //String name = bookList.getBookNameFromList(1);
+        //bookList.changeDataOfBook(name);
+
+        //-------write into a file with method---------
+        //bookList.writeIntoFile();
+
+        //-------read from file---------
+        bookList.readFromFile();
+
     }
 
 }

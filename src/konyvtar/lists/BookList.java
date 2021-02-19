@@ -1,6 +1,7 @@
 package konyvtar.lists;
 import konyvtar.book.Book;
 
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
@@ -118,6 +119,40 @@ public class BookList implements java.io.Serializable {
                 name = book.getTitle();
             }
         }
+        System.out.println("The searched books name: " + name);
         return name;
+    }
+
+    public void writeIntoFile(){
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\tavkozles.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+            out.writeObject(bookList);
+            out.close();
+            fileOutputStream.close();
+            System.out.println("Serialized data is saved in: \n tavkozles.txt ");
+        }catch(IOException i){
+            i.printStackTrace();
+        }
+    }
+
+    public void readFromFile(){
+        try {
+            FileInputStream fileIn = new FileInputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\tavkozles.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            bookList = (ArrayList<Book>) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Book class not found");
+            c.printStackTrace();
+            return;
+        }
+        for (Book book : bookList) {
+            System.out.println(book);
+        }
     }
 }
