@@ -4,6 +4,7 @@ import konyvtar.book.Book;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class BookList implements java.io.Serializable {
 
@@ -59,10 +60,17 @@ public class BookList implements java.io.Serializable {
     * with the input id, if it's similar it's gonna be
     * deleted. And the i+1 book moves back to i position
     * where we deleted the specified book.
-    * If i won't use BREAK the function will crash, maybe
+    *
+    * UPDATE1:If i won't use BREAK the function will crash, maybe
     * because in the first point the lists size is bigger,
     * but after deletion, however, it is one smaller and
     * still works with the original value
+    *
+    * UPDATE2: the problem was that i added 3 more object to the
+    * end of list which were nulls, and the program couldn't such
+    * thing with them, and crashed when arrived at the first null
+    *  object
+    *
     */
     public void deleteBookFromList(int id){
         for( int i = 0 ; i < bookList.size() ; ++i){
@@ -72,16 +80,44 @@ public class BookList implements java.io.Serializable {
             }
         }
     }
-    
-//ezt ujrairni + egy countert berakni, hogy hány konyv van benne
+
     public void displayTheList(){
-        int i;
-        for( i = 0 ; i < bookList.size() ; ++i) {
-            System.out.println(bookList.get(i));
+        int nrOfBooks = 0;
+        for (Book book : bookList) {
+            System.out.println(book);
+            nrOfBooks++;
         }
-        System.out.println(i);
-        //for (Book book : bookList) {
-          //  System.out.println(book);
-        //}
+        System.out.println("number of books:" + nrOfBooks);
+    }
+
+    /* This method changes the name of the specified book
+     * The input is the original name of the book, but my
+     * constructor creates 20 object(Book) with random generated
+     * attributes so I had to implement another method to
+     * get that books name, and in the main class I need a
+     * String variable to put that in, so I can give the
+     * original name with it for the method.
+     */
+    public void changeDataOfBook(String originalName){
+        for (Book book : bookList) {
+            if (book.getTitle().equals(originalName)) {
+                Scanner scan = new Scanner(System.in);
+                String newName = scan.nextLine();
+                book.setTitle(newName);
+            }
+            System.out.println(book.getTitle());
+        }
+    }
+
+    // this method was implented to test the changeDataOfBook
+    // method, more description is above
+    public String getBookNameFromList(int id) {
+        String name = null;
+        for (Book book : bookList) {
+            if (book.getId() == id) {
+                name = book.getTitle();
+            }
+        }
+        return name;
     }
 }
