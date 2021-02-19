@@ -110,7 +110,7 @@ public class BookList implements java.io.Serializable {
     }
 
     // this method was implented to test the changeDataOfBook
-    // method, more description is abovee
+    // method, more description is above
     public String getBookNameFromList(int id) {
         String name = null;
         for (Book book : bookList) {
