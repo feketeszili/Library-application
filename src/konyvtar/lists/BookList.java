@@ -21,14 +21,14 @@ public class BookList implements java.io.Serializable {
         for(int i = 0;  i < 20 ; ++i){
             // Have to create an arraylist to save keywords in it
             ArrayList<String> keywordList = new ArrayList<>();
-            keywordList.add(randomGenerateString());
-            keywordList.add(randomGenerateString());
+            keywordList.add(randomGenerateString2());
+            keywordList.add(randomGenerateString2());
 
             books[i] = new Book();
             books[i].id = i;
-            books[i].title = randomGenerateString();
-            books[i].author = randomGenerateString();
-            books[i].publisher = randomGenerateString();
+            books[i].title = randomGenerateString2();
+            books[i].author = randomGenerateString2();
+            books[i].publisher = randomGenerateString2();
             books[i].publishedDate = randomGenerateNumber();
             books[i].keywords = keywordList;
             books[i].accessable = true;
@@ -44,12 +44,29 @@ public class BookList implements java.io.Serializable {
         return new String(array, StandardCharsets.UTF_8);
     }
 
+    public String randomGenerateString2() {
+
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        return buffer.toString();
+
+    }
+
     public int randomGenerateNumber(){
         Random rand = new Random();
         return rand.nextInt(1000);
     }
 
     public void addBooktoList(Book book){
+        book.setId(bookList.size());
         this.bookList.add(book);
 
     }
@@ -99,6 +116,41 @@ public class BookList implements java.io.Serializable {
      * String variable to put that in, so I can give the
      * original name with it for the method.
      */
+
+    //bemenetnek egy masik konyvet is meg kell adni, s gyakorlatilag azt cserelem ki
+    public void changeDataOfBookByID(int id){
+        for(Book book : bookList){
+            if(book.getId() == id){
+                Book newBook = new Book();
+
+                newBook.id = id;
+                System.out.println("Add title: ");
+                Scanner scan = new Scanner(System.in);
+                newBook.title = scan.nextLine();
+                System.out.println("Add author:");
+                newBook.author = scan.nextLine();
+                System.out.println("Add publisher:");
+                newBook.publisher = scan.nextLine();
+                System.out.println("Add published date:");
+                newBook.publishedDate = scan.nextInt();
+                System.out.println("Add keywords: ");
+                ArrayList<String> newBookListKeywords = new ArrayList();
+                newBookListKeywords.add(scan.nextLine());
+                newBookListKeywords.add(scan.nextLine());
+                newBook.keywords = newBookListKeywords;
+                newBook.accessable = true;
+
+                book.title = newBook.getTitle();
+                book.author = newBook.getAuthor();
+                book.publisher = newBook.getPublisher();
+                book.publishedDate = newBook.getPublishedDate();
+                book.keywords = newBook.getKeywords();
+                book.accessable = true;
+            }
+            System.out.println(book.getTitle());
+        }
+    }
+
     public void changeDataOfBook(String originalName){
         for (Book book : bookList) {
             if (book.getTitle().equals(originalName)) {
@@ -171,6 +223,7 @@ public class BookList implements java.io.Serializable {
         boolean right = false;
         for(Book book : bookList){
             if(book.getId() == id){
+                System.out.println("The book is accessable");
                 right = book.isAccessable();
             }
         }
@@ -189,11 +242,22 @@ public class BookList implements java.io.Serializable {
         }
     }
 
+    // write out every attributes
     public void readFromFile(){
         try {
             FileInputStream fileIn = new FileInputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\tavkozles.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             bookList = (ArrayList<Book>) in.readObject();
+            for(Book book : bookList){
+                System.out.println(book.getId());
+                System.out.println(book.getTitle());
+                System.out.println(book.getAuthor());
+                System.out.println(book.getPublisher());
+                System.out.println(book.getPublishedDate());
+                System.out.println(book.getKeywords());
+                System.out.println(book.isAccessable());
+                System.out.println("\n Next book:");
+            }
             in.close();
             fileIn.close();
         } catch (IOException i) {

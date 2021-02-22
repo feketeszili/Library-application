@@ -67,28 +67,37 @@ public class Main {
     */
         BookList bookList = new BookList();
         //--------testing the add method---------
-        /*Book book = null;
-        Book book2 = null;
-        Book book3 = null;
+        ArrayList<String> keyWords = new ArrayList<>();
+        keyWords.add("fantasy");
+        keyWords.add("scifi");
+        Book book = new Book(
+                -1,
+                "Lord of the rings",
+                "J.R.R Tolkien",
+                "Scientia",
+                1976,
+                keyWords,
+                true);
         bookList.addBooktoList(book);
-        bookList.addBooktoList(book2);
-        bookList.addBooktoList(book3);
-        */
+       // bookList.displayTheList();
         //--------- testing the delete method--------
-        /*
+/*
         bookList.displayTheList();
-        bookList.deleteBookFromList(2);
+        bookList.deleteBookFromList(19);
         bookList.displayTheList();
+*/
 
-         */
         //------ testing the changing the name of book from the list------
-        bookList.changeDataOfBook(bookList.getBookNameFromList(1));
+        bookList.changeDataOfBookByID(5);
 
         //-------write into a file with method---------
-        //bookList.writeIntoFile();
+        bookList.writeIntoFile();
 
         //-------read from file---------
-        //bookList.readFromFile();
+        bookList.readFromFile();
+        //for(int i =  0 ; i < 10 ; ++i){
+          //  bookList.getBookNameFromList(i);
+        //}
 
     }
 
