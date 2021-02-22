@@ -1,22 +1,14 @@
 package konyvtar.loan;
-import konyvtar.book.Book;
-import konyvtar.person.User;
-import konyvtar.person.Librarian;
+import java.time.LocalDate;
 
-public class Loan {
+public class Loan implements java.io.Serializable  {
 
     public int loanID;
     public int bookID;
     public int userID;
     public int librarianID;
-    public int loanDate;
-    public int loanDateExpires;
-
-    /* loanDateExpire attributum helyett meg lehet oldani,
-    * hogy hozzaadunk a loanDate-hez egy bizonyos idot,
-    * es igy megkapjuk a datumot, viszont nem sima szamokkal,
-    * hanem valid idovel kell dolgozni
-    */
+    public LocalDate loanDate;
+    public LocalDate loanDateExpires;
 
     public Loan() {
     }
@@ -53,19 +45,19 @@ public class Loan {
         this.librarianID = librarianID;
     }
 
-    public int getLoanDate() {
+    public LocalDate getLoanDate() {
         return loanDate;
     }
 
-    public void setLoanDate(int loanDate) {
+    public void setLoanDate(LocalDate loanDate) {
         this.loanDate = loanDate;
     }
 
-    public int getLoanDateExpires() {
+    public LocalDate getLoanDateExpires() {
         return loanDateExpires;
     }
 
-    public void setLoanDateExpires(int loanDateExpires) {
+    public void setLoanDateExpires(LocalDate loanDateExpires) {
         this.loanDateExpires = loanDateExpires;
     }
 }
