@@ -1,11 +1,11 @@
 package konyvtar.person;
 
 public class Person {
-    protected int id;
-    protected String name;
-    protected String address;
-    protected String email;
-    protected int phone;
+    public int id;
+    public String name;
+    public String address;
+    public String email;
+    public int phone;
 
     public Person(int id, String name, String address, String email, int phone) {
         this.id = id;
@@ -13,6 +13,10 @@ public class Person {
         this.address = address;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Person() {
+
     }
 
     public int getId() {
