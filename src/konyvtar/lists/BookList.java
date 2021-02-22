@@ -195,12 +195,12 @@ public class BookList implements java.io.Serializable {
 
     public void writeIntoFile(){
         try{
-            FileOutputStream fileOutputStream = new FileOutputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\tavkozles.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\booklist.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
             out.writeObject(bookList);
             out.close();
             fileOutputStream.close();
-            System.out.println("Serialized data is saved in: \n tavkozles.txt ");
+            System.out.println("Serialized data is saved in: \n booklist.txt ");
         }catch(IOException i){
             i.printStackTrace();
         }
@@ -208,7 +208,7 @@ public class BookList implements java.io.Serializable {
 
     public void readFromFile(){
         try {
-            FileInputStream fileIn = new FileInputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\tavkozles.txt");
+            FileInputStream fileIn = new FileInputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\booklist.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             bookList = (ArrayList<Book>) in.readObject();
             int counter = 0;
