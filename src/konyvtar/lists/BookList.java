@@ -38,12 +38,6 @@ public class BookList implements java.io.Serializable {
 
     }
 
-    public String randomGenerateString(){
-        byte[] array = new byte[7]; // length is bounded by 7
-        new Random().nextBytes(array);
-        return new String(array, StandardCharsets.UTF_8);
-    }
-
     public String randomGenerateString2() {
 
         int leftLimit = 97; // letter 'a'
@@ -65,6 +59,7 @@ public class BookList implements java.io.Serializable {
         return rand.nextInt(1000);
     }
 
+    // inserts a new book at the end of the list
     public void addBooktoList(Book book){
         book.setId(bookList.size());
         this.bookList.add(book);
@@ -108,62 +103,31 @@ public class BookList implements java.io.Serializable {
         System.out.println("number of books:" + nrOfBooks);
     }
 
-    /* This method changes the name of the specified book
-     * The input is the original name of the book, but my
-     * constructor creates 20 object(Book) with random generated
-     * attributes so I had to implement another method to
-     * get that books name, and in the main class I need a
-     * String variable to put that in, so I can give the
-     * original name with it for the method.
-     */
-
-    //bemenetnek egy masik konyvet is meg kell adni, s gyakorlatilag azt cserelem ki
+//TODO{ Have to implement a switch case if we want to
+// change only one argument, or need a lot of if }
     public void changeDataOfBookByID(int id){
         for(Book book : bookList){
             if(book.getId() == id){
-                Book newBook = new Book();
-
-                newBook.id = id;
+                Scanner scan = new Scanner(System.in);
                 System.out.println("Add title: ");
-                Scanner scan = new Scanner(System.in);
-                newBook.title = scan.nextLine();
+                book.setTitle(scan.nextLine());
                 System.out.println("Add author:");
-                newBook.author = scan.nextLine();
+                book.setAuthor(scan.nextLine());
                 System.out.println("Add publisher:");
-                newBook.publisher = scan.nextLine();
+                book.setPublisher(scan.nextLine());
                 System.out.println("Add published date:");
-                newBook.publishedDate = scan.nextInt();
+                book.setPublishedDate(scan.nextInt());
                 System.out.println("Add keywords: ");
-                ArrayList<String> newBookListKeywords = new ArrayList();
-                newBookListKeywords.add(scan.nextLine());
-                newBookListKeywords.add(scan.nextLine());
-                newBook.keywords = newBookListKeywords;
-                newBook.accessable = true;
-
-                book.title = newBook.getTitle();
-                book.author = newBook.getAuthor();
-                book.publisher = newBook.getPublisher();
-                book.publishedDate = newBook.getPublishedDate();
-                book.keywords = newBook.getKeywords();
-                book.accessable = true;
+                ArrayList<String> bookListKeywords = new ArrayList();
+                bookListKeywords.add(scan.nextLine());
+                bookListKeywords.add(scan.nextLine());
+                book.setKeywords(bookListKeywords);
+                System.out.println("Book is accessable?:");
+                book.setAccessable(scan.nextBoolean());
             }
-            System.out.println(book.getTitle());
         }
     }
 
-    public void changeDataOfBook(String originalName){
-        for (Book book : bookList) {
-            if (book.getTitle().equals(originalName)) {
-                Scanner scan = new Scanner(System.in);
-                String newName = scan.nextLine();
-                book.setTitle(newName);
-            }
-            System.out.println(book.getTitle());
-        }
-    }
-
-    // this method was implented to test the changeDataOfBook
-    // method, more description is above
     public String getBookNameFromList(int id) {
         String name = null;
         for (Book book : bookList) {
@@ -242,21 +206,22 @@ public class BookList implements java.io.Serializable {
         }
     }
 
-    // write out every attributes
     public void readFromFile(){
         try {
             FileInputStream fileIn = new FileInputStream("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\tavkozles.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             bookList = (ArrayList<Book>) in.readObject();
+            int counter = 0;
             for(Book book : bookList){
-                System.out.println(book.getId());
-                System.out.println(book.getTitle());
-                System.out.println(book.getAuthor());
-                System.out.println(book.getPublisher());
-                System.out.println(book.getPublishedDate());
-                System.out.println(book.getKeywords());
-                System.out.println(book.isAccessable());
-                System.out.println("\n Next book:");
+                counter++;
+                System.out.println("\n" + counter +".Book:");
+                System.out.println("ID:" + book.getId());
+                System.out.println("Title:"+ book.getTitle());
+                System.out.println("Author:" + book.getAuthor());
+                System.out.println("Publisher:" +book.getPublisher());
+                System.out.println("Published date:" +book.getPublishedDate());
+                System.out.println("Keywords:" + book.getKeywords());
+                System.out.println("Accessable:" + book.isAccessable());
             }
             in.close();
             fileIn.close();
@@ -268,8 +233,8 @@ public class BookList implements java.io.Serializable {
             c.printStackTrace();
             return;
         }
-        for (Book book : bookList) {
-            System.out.println(book);
-        }
+        //for (Book book : bookList) {
+        //    System.out.println(book);
+        //}
     }
 }
