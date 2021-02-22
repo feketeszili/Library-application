@@ -103,12 +103,74 @@ public class BookList implements java.io.Serializable {
         System.out.println("number of books:" + nrOfBooks);
     }
 
-//TODO{ Have to implement a switch case if we want to
-// change only one argument, or need a lot of if }
-    public void changeDataOfBookByID(int id){
+//TODO{ Have to change the nextLine at Integer and Boolean attributes
+// cause it reads the last string and I can't even write another}
+
+    public void changeDataOfBookByID(int id) throws Exception {
         for(Book book : bookList){
             if(book.getId() == id){
-                Scanner scan = new Scanner(System.in);
+                boolean active = true;
+                while(active) {
+                    System.out.println("What do you want to change?\n" +
+                            "Title\n" +
+                            "Author\n" +
+                            "Publisher\n" +
+                            "Published Date\n" +
+                            "Keywords\n" +
+                            "Accessable");
+                    Scanner scan = new Scanner(System.in);
+                    String input = scan.nextLine();
+                    switch (input) {
+                        case "Title":
+                            System.out.println("Add title: ");
+                            book.setTitle(scan.nextLine());
+                            System.out.println("Do you want to change another attribute? \nyes/no");
+                            input = scan.nextLine();
+                            active = input.equals("yes");
+                            break;
+                        case "Author":
+                            System.out.println("Add author:");
+                            book.setAuthor(scan.nextLine());
+                            System.out.println("Do you want to change another attribute? \nyes/no");
+                            input = scan.nextLine();
+                            active = input.equals("yes");
+                            break;
+                        case "Publisher":
+                            System.out.println("Add Publisher: ");
+                            book.setPublisher(scan.nextLine());
+                            System.out.println("Do you want to change another attribute? \nyes/no");
+                            input = scan.nextLine();
+                            active = input.equals("yes");
+                            break;
+                        case "Published Date":
+                            System.out.println("Add Published Date: ");
+                            book.setPublishedDate(scan.nextInt());
+                            System.out.println("Do you want to change another attribute? \nyes/no\n");
+                            input = scan.nextLine();
+                            active = input.equals("yes");
+                            break;
+                        case "Keywords":
+                            System.out.println("Add keywords:");
+                            ArrayList<String> bookListKeywords = new ArrayList();
+                            bookListKeywords.add(scan.nextLine());
+                            book.setKeywords(bookListKeywords);
+                            System.out.println("Do you want to change another attribute? \nyes/no");
+                            input = scan.nextLine();
+                            active = input.equals("yes");
+                            break;
+                        case "Accessable":
+                            System.out.println("Change Accessable:\n true/false");
+                            book.setAccessable(scan.nextBoolean());
+                            System.out.println("Do you want to change another attribute? \nyes/no");
+                            input = scan.nextLine();
+                            active = input.equals("yes");
+                            break;
+                        default:
+                            throw new Exception("Unknown component type");
+                    }
+                }
+
+/*
                 System.out.println("Add title: ");
                 book.setTitle(scan.nextLine());
                 System.out.println("Add author:");
@@ -123,7 +185,7 @@ public class BookList implements java.io.Serializable {
                 bookListKeywords.add(scan.nextLine());
                 book.setKeywords(bookListKeywords);
                 System.out.println("Book is accessable?:");
-                book.setAccessable(scan.nextBoolean());
+                book.setAccessable(scan.nextBoolean());*/
             }
         }
     }
@@ -171,6 +233,7 @@ public class BookList implements java.io.Serializable {
         System.out.println("The searched book published date: " + publishedDate);
         return publishedDate;
     }
+
 
     public ArrayList<String> getBookKeywordsFromList(int id){
         ArrayList<String> keywords = new ArrayList();

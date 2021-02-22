@@ -8,11 +8,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class UserList implements java.io.Serializable {
-    //public User(int id,
-    // String name,
-    // String address,
-    // String email,
-    // int phone)
 
     public ArrayList<User> userList;
 

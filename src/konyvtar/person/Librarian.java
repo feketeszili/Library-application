@@ -1,6 +1,6 @@
 package konyvtar.person;
 
-public class Librarian extends Person {
+public class Librarian extends Person implements java.io.Serializable{
 
     public String password;
 
