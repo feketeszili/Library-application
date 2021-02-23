@@ -62,10 +62,31 @@ public class Main {
         loan.loanDateExpires = loan.loanDate.plusWeeks(2);
         System.out.println("Date expires:" + loan.loanDateExpires);
 
+        Loan loan2 = new Loan();
+        loan2.loanID =1;
+        System.out.println("\nAdd book ID:");
+        loan2.bookID = scan.nextInt();
+        bookList.changeDataOfBookByID(loan2.bookID);
+        System.out.println("\nAdd User ID");
+        loan2.userID = scan.nextInt();
+        System.out.println("\nAdd librarian ID:");
+        loan2.librarianID = scan.nextInt();
+        loan2.loanDate = LocalDate.now();
+        System.out.println("Date:"+ loan2.loanDate);
+        loan2.loanDateExpires = loan2.loanDate.plusWeeks(4);
+        System.out.println("Date expires:" + loan2.loanDateExpires);
+
+
         LoanList loanList = new LoanList();
         loanList.addLoanToList(loan);
+        loanList.addLoanToList(loan2);
+        loanList.displayLoanList();
         loanList.writeIntoFile();
         loanList.readFromFile();
+        loanList.deleteLoanFromList(1);
+        bookList.changeDataOfBookByID(2);
+        loanList.displayLoanList();
+
 
     }
 

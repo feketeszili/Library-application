@@ -144,9 +144,12 @@ public class BookList implements java.io.Serializable {
                             break;
                         case "Published Date":
                             System.out.println("Add Published Date: ");
+                          /*  input = scan.nextLine();
+                            int x = Integer.parseInt(input);
+                            book.setPublishedDate(x);*/
                             book.setPublishedDate(scan.nextInt());
                             System.out.println("Do you want to change another attribute? \nyes/no\n");
-                            input = scan.nextLine();
+                            input = scan.next();
                             active = input.equals("yes");
                             break;
                         case "Keywords":
@@ -162,30 +165,13 @@ public class BookList implements java.io.Serializable {
                             System.out.println("Change Accessable:\n true/false");
                             book.setAccessable(scan.nextBoolean());
                             System.out.println("Do you want to change another attribute? \nyes/no");
-                            input = scan.nextLine();
+                            input = scan.next();
                             active = input.equals("yes");
                             break;
                         default:
                             throw new Exception("Unknown component type");
                     }
                 }
-
-/*
-                System.out.println("Add title: ");
-                book.setTitle(scan.nextLine());
-                System.out.println("Add author:");
-                book.setAuthor(scan.nextLine());
-                System.out.println("Add publisher:");
-                book.setPublisher(scan.nextLine());
-                System.out.println("Add published date:");
-                book.setPublishedDate(scan.nextInt());
-                System.out.println("Add keywords: ");
-                ArrayList<String> bookListKeywords = new ArrayList();
-                bookListKeywords.add(scan.nextLine());
-                bookListKeywords.add(scan.nextLine());
-                book.setKeywords(bookListKeywords);
-                System.out.println("Book is accessable?:");
-                book.setAccessable(scan.nextBoolean());*/
             }
         }
     }
