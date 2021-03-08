@@ -33,10 +33,12 @@ public class Main {
                 keyWords,
                 true);
         bookList.addBooktoList(book);
-        //bookList.changeDataOfBookByID(1);
-        bookList.writeIntoFile();
-        bookList.readFromFile();
 
+        //bookList.changeDataOfBookByID(1);
+        //bookList.writeIntoFile();
+        //bookList.readFromFile();
+
+        /*
         UserList userList = new UserList();
         userList.writeIntoFile();
         LibrarianList librarianList = new LibrarianList();
@@ -87,7 +89,12 @@ public class Main {
         bookList.changeDataOfBookByID(2);
         loanList.displayLoanList();
 
-
+         */
+        //bookList.writeXMLFile();
+        bookList.writeIntoFile();
+        bookList.readFromFile();
+        bookList.readXMLFile();
+        bookList.getBookNameFromList(8);
     }
 
 }
