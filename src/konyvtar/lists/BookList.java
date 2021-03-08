@@ -332,6 +332,14 @@ public class BookList implements java.io.Serializable {
         }
     }
 
+    /*
+    * I have to save the data into the list when I
+    * read it from the XML file, because this is the only
+    * way to remain the original data. So when I read it,
+    * I also set the specific data to the specific object,
+    * and there will be no problem with the random generated
+    * attributes anymore.
+     */
     public void readXMLFile() {
         try {
             File fXmlFile = new File("D:\\Egyetem2016-2021\\IV_ev\\tavkozles_szoftver\\src\\konyvtar\\konyvlista.xml");
@@ -352,9 +360,7 @@ public class BookList implements java.io.Serializable {
 
                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-//TODO{ letrehozni egy listat amibe elmentjuk a beolvasott adatokat }
                     Element eElement = (Element) nNode;
-
                    for(Book book : bookList){
                        if(book.getId() == Integer.parseInt(eElement.getAttribute("id"))){
                             book.setId(Integer.parseInt(eElement.getAttribute("id")));
