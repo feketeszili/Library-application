@@ -256,9 +256,6 @@ public class BookList implements java.io.Serializable {
         Element root = doc.createElement("BookList");
         doc.appendChild(root);
 
-        //Element Books = doc.createElement("Books");
-        //root.appendChild(Books);
-
         for (Book book : bookList) {
 
             Element Books = doc.createElement("Books");
@@ -269,13 +266,13 @@ public class BookList implements java.io.Serializable {
             Books.setAttributeNode(attr);
 
             Element title = doc.createElement("title");
-            title.appendChild(doc.createTextNode(String.valueOf(book
-                    .getTitle())));
+            title.appendChild(doc.createTextNode(book
+                    .getTitle()));
             Books.appendChild(title);
 
             Element author = doc.createElement("author");
-            author.appendChild(doc.createTextNode(String.valueOf(book
-                    .getAuthor())));
+            author.appendChild(doc.createTextNode(book
+                    .getAuthor()));
             Books.appendChild(author);
 
             Element publisher = doc.createElement("publisher");
@@ -354,15 +351,17 @@ public class BookList implements java.io.Serializable {
             NodeList nList = doc.getElementsByTagName("Books");
 
             System.out.println("----------------------------");
+
+            bookList.clear();
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
                 Node nNode = nList.item(temp);
-
                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                   for(Book book : bookList){
-                       if(book.getId() == Integer.parseInt(eElement.getAttribute("id"))){
+                  // for(Book book : bookList){
+                       //if(book.getId() == Integer.parseInt(eElement.getAttribute("id"))){
+                            Book book = new Book();
                             book.setId(Integer.parseInt(eElement.getAttribute("id")));
                             book.setTitle(eElement.getElementsByTagName("title").item(0).getTextContent());
                             book.setAuthor(eElement.getElementsByTagName("author").item(0).getTextContent());
@@ -374,8 +373,8 @@ public class BookList implements java.io.Serializable {
                             book.setKeywords(myList);
                             // convert String into boolean
                             book.setAccessable(Boolean.parseBoolean(eElement.getElementsByTagName("accessable").item(0).getTextContent()));
-                        }
-                   }
+                            bookList.add(book);
+
                     System.out.println("Book id:" + eElement.getAttribute("id"));
                     System.out.println("Book title:" + eElement.getElementsByTagName("title").item(0).getTextContent());
                     System.out.println("Book author:" + eElement.getElementsByTagName("author").item(0).getTextContent());
