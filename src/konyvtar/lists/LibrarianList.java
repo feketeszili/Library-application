@@ -14,14 +14,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class LibrarianList implements java.io.Serializable {
 
     public ArrayList<Librarian> librarianList;
+    public List<Librarian> returnList(){
+        return librarianList;
+    }
 
     public LibrarianList() {
         Librarian[] librarian = new Librarian[20];
@@ -283,6 +283,8 @@ public class LibrarianList implements java.io.Serializable {
             NodeList nList = doc.getElementsByTagName("Librarians");
 
             System.out.println("----------------------------");
+
+            librarianList.clear();
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
                 Node nNode = nList.item(temp);
@@ -290,17 +292,14 @@ public class LibrarianList implements java.io.Serializable {
                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    for(Librarian librarian : librarianList){
-                        if(librarian.getId() == Integer.parseInt(eElement.getAttribute("id"))){
-                            librarian.setId(Integer.parseInt(eElement.getAttribute("id")));
-                            librarian.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
-                            librarian.setAddress(eElement.getElementsByTagName("address").item(0).getTextContent());
-                            librarian.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
-                            // convert string into integer
-                            librarian.setPhone(Integer.parseInt(eElement.getElementsByTagName("phone").item(0).getTextContent()));
-                            librarian.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
-                        }
-                    }
+                    Librarian librarian = new Librarian();
+                    librarian.setId(Integer.parseInt(eElement.getAttribute("id")));
+                    librarian.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+                    librarian.setAddress(eElement.getElementsByTagName("address").item(0).getTextContent());
+                    librarian.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());// convert string into integer
+                    librarian.setPhone(Integer.parseInt(eElement.getElementsByTagName("phone").item(0).getTextContent()));
+                    librarian.setPassword(eElement.getElementsByTagName("password").item(0).getTextContent());
+                    librarianList.add(librarian);
                     System.out.println("Librarian id:" + eElement.getAttribute("id"));
                     System.out.println("Librarian Name:" + eElement.getElementsByTagName("name").item(0).getTextContent());
                     System.out.println("Librarian Address:" + eElement.getElementsByTagName("address").item(0).getTextContent());

@@ -1,10 +1,9 @@
 package konyvtar.book;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Book implements java.io.Serializable {
-    public int id;
+    public int ID;
     public String title;
     public String author;
     public String publisher;
@@ -12,8 +11,8 @@ public class Book implements java.io.Serializable {
     public ArrayList<String> keywords ;
     public boolean accessable;
 
-    public Book(int id, String title, String author, String publisher, int publishedDate, ArrayList<String> keywords, boolean accessable) {
-        this.id = id;
+    public Book(int ID, String title, String author, String publisher, int publishedDate, ArrayList<String> keywords, boolean accessable) {
+        this.ID = ID;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
@@ -26,12 +25,12 @@ public class Book implements java.io.Serializable {
 
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public void setTitle(String title) {

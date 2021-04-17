@@ -1,5 +1,6 @@
 package konyvtar.lists;
 
+import konyvtar.book.Book;
 import konyvtar.loan.Loan;
 import konyvtar.person.User;
 import org.w3c.dom.*;
@@ -16,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoanList implements java.io.Serializable{
     /* public int loanID;
@@ -26,6 +28,10 @@ public class LoanList implements java.io.Serializable{
     public LocalDate loanDateExpires;*/
 
     public ArrayList<Loan> loanList;
+
+    public List<Loan> returnList(){
+        return loanList;
+    }
 
     public LoanList(){
         this.loanList = new ArrayList<>();
@@ -191,23 +197,23 @@ public class LoanList implements java.io.Serializable{
             NodeList nList = doc.getElementsByTagName("Loans");
 
             System.out.println("----------------------------");
+
+            loanList.clear();
+
             for (int temp = 0; temp < nList.getLength(); temp++) {
-
                 Node nNode = nList.item(temp);
-
                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    for(Loan loan : loanList){
-                        if(loan.getLoanID() == Integer.parseInt(eElement.getAttribute("loanID"))){
+                            Loan loan = new Loan();
                             loan.setLoanID(Integer.parseInt(eElement.getAttribute("loanID")));
                             loan.setBookID(Integer.parseInt(eElement.getElementsByTagName("bookID").item(0).getTextContent()));
                             loan.setUserID(Integer.parseInt(eElement.getElementsByTagName("userID").item(0).getTextContent()));
                             loan.setLibrarianID(Integer.parseInt(eElement.getElementsByTagName("librarianID").item(0).getTextContent()));
                             loan.setLoanDate(LocalDate.parse(eElement.getElementsByTagName("loanDate").item(0).getTextContent()));
                             loan.setLoanDateExpires(LocalDate.parse(eElement.getElementsByTagName("loanDateExpires").item(0).getTextContent()));
-                        }
-                    }
+                        loanList.add(loan);
+
                     System.out.println("Loan id:" + eElement.getAttribute("loanID"));
                     System.out.println("Book id:" + eElement.getElementsByTagName("bookID").item(0).getTextContent());
                     System.out.println("User id:" + eElement.getElementsByTagName("userID").item(0).getTextContent());
