@@ -1,5 +1,6 @@
 package konyvtar.lists;
 
+import konyvtar.book.Book;
 import konyvtar.person.Librarian;
 import konyvtar.person.User;
 import org.w3c.dom.*;
@@ -15,12 +16,17 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class UserList implements java.io.Serializable {
 
     public ArrayList<User> userList;
+
+    public List<User> returnList(){
+        return userList;
+    }
 
     public UserList() {
         User[] user = new User[20];
@@ -264,6 +270,7 @@ public class UserList implements java.io.Serializable {
             NodeList nList = doc.getElementsByTagName("Users");
 
             System.out.println("----------------------------");
+            userList.clear();
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
                 Node nNode = nList.item(temp);
@@ -271,15 +278,13 @@ public class UserList implements java.io.Serializable {
                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    for(User user : userList){
-                        if(user.getId() == Integer.parseInt(eElement.getAttribute("id"))){
+                            User user = new User();
                             user.setId(Integer.parseInt(eElement.getAttribute("id")));
                             user.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
                             user.setAddress(eElement.getElementsByTagName("address").item(0).getTextContent());
                             user.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
                             user.setPhone(Integer.parseInt(eElement.getElementsByTagName("phone").item(0).getTextContent()));
-                        }
-                    }
+                            userList.add(user);
                     System.out.println("User id:" + eElement.getAttribute("id"));
                     System.out.println("User Name:" + eElement.getElementsByTagName("name").item(0).getTextContent());
                     System.out.println("User Address:" + eElement.getElementsByTagName("address").item(0).getTextContent());

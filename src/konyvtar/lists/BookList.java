@@ -12,12 +12,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class BookList implements java.io.Serializable {
 
     public ArrayList<Book>  bookList;
+
+    public List<Book> returnList(){
+        return bookList;
+    }
 
     public BookList() {
 
@@ -33,7 +36,7 @@ public class BookList implements java.io.Serializable {
             keywordList.add(randomGenerateString2());
 
             books[i] = new Book();
-            books[i].id = i;
+            books[i].ID = i;
             books[i].title = randomGenerateString2();
             books[i].author = randomGenerateString2();
             books[i].publisher = randomGenerateString2();
@@ -69,7 +72,7 @@ public class BookList implements java.io.Serializable {
 
     // inserts a new book at the end of the list
     public void addBooktoList(Book book){
-        book.setId(bookList.size());
+        book.setID(bookList.size());
         this.bookList.add(book);
 
     }
@@ -95,7 +98,7 @@ public class BookList implements java.io.Serializable {
     */
     public void deleteBookFromList(int id){
         for( int i = 0 ; i < bookList.size() ; ++i){
-            if (bookList.get(i).getId() == id ) {
+            if (bookList.get(i).getID() == id ) {
                 bookList.remove(i);
                 break;
             }
@@ -113,7 +116,7 @@ public class BookList implements java.io.Serializable {
 
     public void changeDataOfBookByID(int id) throws Exception {
         for(Book book : bookList){
-            if(book.getId() == id){
+            if(book.getID() == id){
                 boolean active = true;
                 while(active) {
                     System.out.println("\nWhat do you want to change?\n" +
@@ -184,7 +187,7 @@ public class BookList implements java.io.Serializable {
     public String getBookNameFromList(int id) {
         String name = null;
         for (Book book : bookList) {
-            if (book.getId() == id) {
+            if (book.getID() == id) {
                 name = book.getTitle();
             }
         }
@@ -195,7 +198,7 @@ public class BookList implements java.io.Serializable {
     public String getBookAuthorFromList(int id) {
         String name = null;
         for (Book book : bookList) {
-            if (book.getId() == id) {
+            if (book.getID() == id) {
                 name = book.getAuthor();
             }
         }
@@ -206,7 +209,7 @@ public class BookList implements java.io.Serializable {
     public String getBookPublisherFromList(int id) {
         String name = null;
         for (Book book : bookList) {
-            if (book.getId() == id) {
+            if (book.getID() == id) {
                 name = book.getPublisher();
             }
         }
@@ -217,7 +220,7 @@ public class BookList implements java.io.Serializable {
     public int getBookPublishedDateFromList(int id) {
         int publishedDate = 0;
         for (Book book : bookList) {
-            if (book.getId() == id) {
+            if (book.getID() == id) {
                 publishedDate = book.getPublishedDate();
             }
         }
@@ -229,7 +232,7 @@ public class BookList implements java.io.Serializable {
     public ArrayList<String> getBookKeywordsFromList(int id){
         ArrayList<String> keywords = new ArrayList();
         for(Book book : bookList){
-            if(book.getId() == id){
+            if(book.getID() == id){
                 keywords = book.getKeywords();
             }
         }
@@ -240,7 +243,7 @@ public class BookList implements java.io.Serializable {
     public void isBookAccessableFromList(int id){
         boolean right = false;
         for(Book book : bookList){
-            if(book.getId() == id){
+            if(book.getID() == id){
                 System.out.println("The book is accessable");
                 right = book.isAccessable();
             }
@@ -262,7 +265,7 @@ public class BookList implements java.io.Serializable {
             root.appendChild(Books);
 
             Attr attr =  doc.createAttribute("id");
-            attr.setValue(String.valueOf(book.getId()));
+            attr.setValue(String.valueOf(book.getID()));
             Books.setAttributeNode(attr);
 
             Element title = doc.createElement("title");
@@ -359,10 +362,9 @@ public class BookList implements java.io.Serializable {
                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                  // for(Book book : bookList){
-                       //if(book.getId() == Integer.parseInt(eElement.getAttribute("id"))){
+
                             Book book = new Book();
-                            book.setId(Integer.parseInt(eElement.getAttribute("id")));
+                            book.setID(Integer.parseInt(eElement.getAttribute("id")));
                             book.setTitle(eElement.getElementsByTagName("title").item(0).getTextContent());
                             book.setAuthor(eElement.getElementsByTagName("author").item(0).getTextContent());
                             book.setPublisher(eElement.getElementsByTagName("publisher").item(0).getTextContent());
@@ -411,7 +413,7 @@ public class BookList implements java.io.Serializable {
             for(Book book : bookList){
                 counter++;
                 System.out.println("\n" + counter +".Book:");
-                System.out.println("ID:" + book.getId());
+                System.out.println("ID:" + book.getID());
                 System.out.println("Title:"+ book.getTitle());
                 System.out.println("Author:" + book.getAuthor());
                 System.out.println("Publisher:" +book.getPublisher());
@@ -432,5 +434,9 @@ public class BookList implements java.io.Serializable {
         //for (Book book : bookList) {
         //    System.out.println(book);
         //}
+    }
+
+    public int size() {
+        return bookList.size();
     }
 }

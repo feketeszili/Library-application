@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane blendMode="EXCLUSION" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1219.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="konyvtar.gui.Controller">
+    <MenuBar blendMode="EXCLUSION" prefHeight="30.0" prefWidth="1200.0" AnchorPane.bottomAnchor="570.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Menu id="data" fx:id="data" mnemonicParsing="false" text="Book">
+            <MenuItem id="loadBookXML" fx:id="loadBooksFromXMLIntoListView" mnemonicParsing="false" onAction="#loadBooksFromXMLIntoListView" text="Load Book from XML" />
+            <MenuItem mnemonicParsing="false" text="Save Book into XML" />
+            <MenuItem mnemonicParsing="false" text="Load Book from txt" />
+            <MenuItem mnemonicParsing="false" text="Save Book into txt" />
+            <MenuItem mnemonicParsing="false" text="Load Book from SQL" />
+            <MenuItem mnemonicParsing="false" text="Save Book into SQL" />
+            <MenuItem fx:id="changeBookData" mnemonicParsing="false" onAction="#changeBookData" text="Change Book Data" />
+            <MenuItem mnemonicParsing="false" onAction="#addBook" text="Add Book" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteBook" text="Delete Book" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="User">
+            <MenuItem fx:id="loadUsersFromXMLIntoTableView" mnemonicParsing="false" onAction="#loadUsersFromXMLIntoTableView" text="Load User from XML" />
+            <MenuItem mnemonicParsing="false" text="Save User into XML" />
+            <MenuItem mnemonicParsing="false" text="Load User from txt" />
+            <MenuItem mnemonicParsing="false" text="Save User into txt" />
+            <MenuItem mnemonicParsing="false" text="Load User from SQL" />
+            <MenuItem mnemonicParsing="false" text="Save User into SQL" />
+            <MenuItem mnemonicParsing="false" text="Change User Data" />
+            <MenuItem mnemonicParsing="false" text="Add User" />
+            <MenuItem mnemonicParsing="false" text="Delete User" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Librarian ">
+            <MenuItem fx:id="loadLibrariansFromXMLIntoTableView" mnemonicParsing="false" onAction="#loadLibrariansFromXMLIntoTableView" text="Load Librarian from XML" />
+            <MenuItem mnemonicParsing="false" text="Save Librarian into XML" />
+            <MenuItem mnemonicParsing="false" text="Load Librarian from txt" />
+            <MenuItem mnemonicParsing="false" text="Save Librarian into txt" />
+            <MenuItem mnemonicParsing="false" text="Load Librarian from SQL" />
+            <MenuItem mnemonicParsing="false" text="Save Librarian into SQL" />
+            <MenuItem mnemonicParsing="false" text="Change Librarians Data" />
+            <MenuItem mnemonicParsing="false" text="Add new Librarian" />
+            <MenuItem mnemonicParsing="false" text="Delete Librarian" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Loan">
+            <MenuItem fx:id="loadLoansFromXMLIntoTableViewloadLoansFromXMLIntoTableView" mnemonicParsing="false" onAction="#loadLoansFromXMLIntoTableView" text="Load Loan from XML" />
+            <MenuItem mnemonicParsing="false" text="Save Loan into XML" />
+            <MenuItem mnemonicParsing="false" text="Load Loan from txt" />
+            <MenuItem mnemonicParsing="false" text="Save Loan into txt" />
+            <MenuItem mnemonicParsing="false" text="Load Loan from SQL" />
+            <MenuItem mnemonicParsing="false" text="Save Loan into SQL" />
+            <MenuItem mnemonicParsing="false" text="Change Loan data" />
+            <MenuItem mnemonicParsing="false" text="Add new Loan" />
+            <MenuItem mnemonicParsing="false" text="Delete Loan" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="About" />
+    </MenuBar>
+    <TableView fx:id="bookTable" blendMode="EXCLUSION" layoutY="30.0" prefHeight="380.0" prefWidth="644.0">
+      <columns>
+          <TableColumn fx:id="bookID" prefWidth="55.0" text="ID" />
+          <TableColumn fx:id="bookTitle" prefWidth="95.0" text="Title" />
+          <TableColumn fx:id="bookAuthor" prefWidth="81.0" text="Author" />
+          <TableColumn fx:id="bookPublisher" prefWidth="85.0" text="Publisher" />
+          <TableColumn fx:id="bookPublishedDate" prefWidth="101.0" text="Published Date" />
+          <TableColumn fx:id="bookKeywords" prefWidth="122.0" text="Keywords" />
+          <TableColumn fx:id="bookAcessable" prefWidth="64.0" text="Acessable" />
+      </columns>
+    </TableView>
+    <TableView fx:id="userTable" blendMode="EXCLUSION" layoutX="644.0" layoutY="30.0" prefHeight="195.0" prefWidth="575.0" AnchorPane.leftAnchor="644.0">
+      <columns>
+          <TableColumn fx:id="userID" prefWidth="53.0" text="ID" />
+          <TableColumn fx:id="userName" prefWidth="137.0" text="Name" />
+          <TableColumn fx:id="userAddress" prefWidth="137.0" text="Address" />
+          <TableColumn fx:id="userEmail" prefWidth="121.0" text="Email" />
+          <TableColumn fx:id="userPhone" prefWidth="147.0" text="Phone Number" />
+      </columns>
+    </TableView>
+    <TableView fx:id="loanTable" blendMode="EXCLUSION" layoutY="409.0" prefHeight="195.0" prefWidth="1219.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.topAnchor="409.0">
+      <columns>
+          <TableColumn fx:id="loanID" prefWidth="75.0" text="Loan ID" />
+          <TableColumn fx:id="bookID2" prefWidth="75.0" text="Book ID" />
+          <TableColumn fx:id="userID2" prefWidth="75.0" text="User ID" />
+          <TableColumn fx:id="librarianID2" prefWidth="121.0" text="Librarian ID" />
+          <TableColumn fx:id="loanDate" prefWidth="401.0" text="Loan Date" />
+          <TableColumn fx:id="loanDateExpire" prefWidth="465.0" text="Loan Expire Date" />
+      </columns>
+    </TableView>
+    <TableView fx:id="librarianTable" blendMode="EXCLUSION" layoutX="644.0" layoutY="225.0" prefHeight="184.0" prefWidth="575.0">
+      <columns>
+          <TableColumn fx:id="librarianID" prefWidth="45.0" text="ID" />
+          <TableColumn fx:id="librarianName" prefWidth="105.0" text="Name" />
+          <TableColumn fx:id="librarianAddress" prefWidth="100.0" text="Address" />
+          <TableColumn fx:id="librarianEmail" prefWidth="110.0" text="Email" />
+          <TableColumn fx:id="librarianPhone" prefWidth="117.0" text="Phone Number" />
+          <TableColumn fx:id="librarianPassword" prefWidth="119.0" text="Password" />
+      </columns>
+    </TableView>
+</AnchorPane>
