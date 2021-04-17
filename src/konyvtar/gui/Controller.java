@@ -19,10 +19,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import konyvtar.book.Book;
 import konyvtar.lists.*;
+import konyvtar.lists.BookList;
 import javafx.application.Platform;
 import konyvtar.loan.Loan;
 import konyvtar.person.Librarian;
 import konyvtar.person.User;
+
 
 import java.awt.*;
 
@@ -43,6 +45,7 @@ public class Controller {
     public static LibrarianList librarianList = new LibrarianList();
     public static LoanList loanList = new LoanList();
 
+    //----------------------------------------- TableViews for lists-----------------------------------------
     public TableView<Book> bookTable;
     public TableColumn<Book, Integer> bookID;
     public TableColumn<Book, String> bookTitle;
@@ -75,6 +78,7 @@ public class Controller {
     public TableColumn<Loan, LocalDate> loanDate;
     public TableColumn<Loan, LocalDate> loanDateExpire;
 
+    //------------------------------- Book Menu Items Textfields--------------------------------
     public TextField addTitle;
     public TextField addAuthor;
     public TextField addPublisher;
@@ -82,6 +86,17 @@ public class Controller {
     public TextField addKeywords;
     public TextField addAccessable;
     public TextField deleteBook;
+    public TextField changeBookID;
+    public TextField changeBookTitle;
+    public TextField changeBookAuthor;
+    public TextField changeBookPublisher;
+    public TextField changeBookPublishedDate;
+    public TextField changeBookKeywords;
+    public TextField changeBookAccessable;
+
+    //---------------------------------User Menu Items Textfields----------------------------------
+    //---------------------------------Librarian Menu Items TextFields------------------------------
+    //---------------------------------Loan Menu Items TextFields-----------------------------------
 
     public void updateTableViewForBooks() {
         ObservableList<Book> books = FXCollections.observableArrayList(
@@ -206,6 +221,42 @@ public class Controller {
     }
 
     public void changeBookData(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("changeBookData.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 300, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Delete Book");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void changeBookDataButton(ActionEvent actionEvent){
+        for(Book book: bookList.returnList()){
+            if(book.getID() == Integer.parseInt(changeBookID.getText())){
+                if(!changeBookTitle.getText().isEmpty())
+                    book.setTitle(changeBookTitle.getText());
+                if(!changeBookAuthor.getText().isEmpty())
+                    book.setAuthor(changeBookAuthor.getText());
+                if(!changeBookAuthor.getText().isEmpty())
+                    book.setPublisher(changeBookPublisher.getText());
+                if(!changeBookPublishedDate.getText().isEmpty())
+                    book.setPublishedDate(Integer.parseInt(changeBookPublishedDate.getText()));
+                if(!changeBookKeywords.getText().isEmpty()){
+                    String str = changeBookKeywords.getText();
+                    ArrayList<String> items = new ArrayList<>(Arrays.asList(str.split(", ")));
+                    book.setKeywords(items);
+                }
+                if(!changeBookAccessable.getText().isEmpty())
+                    book.setAccessable(Boolean.parseBoolean(changeBookAccessable.getText()));
+            }
+        }
+        bookList.writeXMLFile();
     }
 
 }
