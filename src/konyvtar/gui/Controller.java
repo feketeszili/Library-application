@@ -7,11 +7,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -27,8 +28,6 @@ import konyvtar.person.User;
 
 
 import java.awt.*;
-
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -95,10 +94,51 @@ public class Controller {
     public TextField changeBookAccessable;
 
     //---------------------------------User Menu Items Textfields----------------------------------
+    public TextField addUserName;
+    public TextField addUserAddress;
+    public TextField addUserEmail;
+    public TextField addUserPhone;
+    public TextField changeUserID;
+    public TextField changeUserName;
+    public TextField changeUserAddress;
+    public TextField changeUserEmail;
+    public TextField changeUserPhone;
+    public TextField deleteUserID;
     //---------------------------------Librarian Menu Items TextFields------------------------------
+    public TextField addLibrarianName;
+    public TextField addLibrarianAddress;
+    public TextField addLibrarianEmail;
+    public TextField addLibrarianPhone;
+    public TextField addLibrarianPassword;
+    public TextField changeLibrarianID;
+    public TextField changeLibrarianName;
+    public TextField changeLibrarianAddress;
+    public TextField changeLibrarianEmail;
+    public TextField changeLibrarianPhone;
+    public TextField changeLibrarianPassword;
+    public TextField deleteLibrarianrID;
     //---------------------------------Loan Menu Items TextFields-----------------------------------
+    //---------------------------------Buttons------------------------------------------------------
+    @FXML
+    public Button buttonDeleteBook;
+    @FXML
+    public Button buttonAddBook;
+    @FXML
+    public Button buttonChangeBook;
+    @FXML
+    public Button buttonAddUser;
+    @FXML
+    public Button buttonChangeUser;
+    @FXML
+    public Button buttonDeleteUser;
+    @FXML
+    public Button buttonAddLibrarian;
+    @FXML
+    public Button buttonChangeLibrarian;
+    @FXML
+    public Button buttonDeleteLibrarian;
 
-    public void updateTableViewForBooks() {
+    public void updateTableViewForBooks(ActionEvent actionEvent) {
         ObservableList<Book> books = FXCollections.observableArrayList(
                 bookList.returnList());
         bookID.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -111,7 +151,7 @@ public class Controller {
         bookTable.setItems(books);
     }
 
-    public void updateTableViewForUsers() {
+    public void updateTableViewForUsers(ActionEvent actionEvent) {
         ObservableList<User> users = FXCollections.observableArrayList(
                 userList.returnList());
         userID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -122,7 +162,7 @@ public class Controller {
         userTable.setItems(users);
     }
 
-    public void updateTableViewForLibrarians() {
+    public void updateTableViewForLibrarians(ActionEvent actionEvent) {
         ObservableList<Librarian> librarians = FXCollections.observableArrayList(
                 librarianList.returnList());
         librarianID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -134,7 +174,7 @@ public class Controller {
         librarianTable.setItems(librarians);
     }
 
-    public void updateTableViewForLoans() {
+    public void updateTableViewForLoans(ActionEvent actionEvent) {
         ObservableList<Loan> loans = FXCollections.observableArrayList(
                 loanList.returnList());
         loanID.setCellValueFactory(new PropertyValueFactory<>("loanID"));
@@ -148,22 +188,22 @@ public class Controller {
 
     public void loadBooksFromXMLIntoListView(ActionEvent actionEvent) {
         bookList.readXMLFile();
-        updateTableViewForBooks();
+        updateTableViewForBooks(actionEvent);
     }
 
     public void loadUsersFromXMLIntoTableView(ActionEvent actionEvent) {
         userList.readXMLFile();
-        updateTableViewForUsers();
+        updateTableViewForUsers(actionEvent);
     }
 
     public void loadLibrariansFromXMLIntoTableView(ActionEvent actionEvent) {
         librarianList.readXMLFile();
-        updateTableViewForLibrarians();
+        updateTableViewForLibrarians(actionEvent);
     }
 
     public void loadLoansFromXMLIntoTableView(ActionEvent actionEvent) {
         loanList.readXMLFile();
-        updateTableViewForLoans();
+        updateTableViewForLoans(actionEvent);
     }
 
     public void addBook(ActionEvent actionEvent) {
@@ -191,14 +231,16 @@ public class Controller {
         book.setPublisher(addPublisher.getText());
         book.setPublishedDate(Integer.parseInt(addPublishedDate.getText()));
         String str = addKeywords.getText();
-        ArrayList<String> items = new ArrayList<>(Arrays.asList(str.split(", ")));
+        ArrayList<String> items = new ArrayList<>(Arrays.asList(str.split(",")));
         book.setKeywords(items);
         book.setAccessable(Boolean.parseBoolean(addAccessable.getText()));
         bookList.addBooktoList(book);
         bookList.writeXMLFile();
+        Stage stage = (Stage) buttonDeleteBook.getScene().getWindow();
+        stage.close();
     }
 
-    public void deleteBook(ActionEvent actionEvent){
+    public void deleteBook(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("deletebook.fxml"));
@@ -218,21 +260,43 @@ public class Controller {
         int id = Integer.parseInt(deleteBook.getText());
         bookList.deleteBookFromList(id);
         bookList.writeXMLFile();
+        Stage stage = (Stage) buttonDeleteBook.getScene().getWindow();
+        stage.close();
+        //loadBooksFromXMLIntoListView(actionEvent);
     }
 
+    //TODO implement a version where you can click a row and opens a window with the current data
+    //TODO implement those functions while you click a Delete,Add etc. button the window will close instantly
+    //MouseEvent mouseEvent
     public void changeBookData(ActionEvent actionEvent) {
+        Book book = bookTable.getSelectionModel().getSelectedItem();
+       /* changeBookID = new TextField();
+        changeBookTitle = new TextField();
+        changeBookAuthor = new TextField();
+        changeBookPublisher = new TextField();
+        changeBookPublishedDate = new TextField();
+        changeBookKeywords = new TextField();
+        changeBookAccessable = new TextField();
+        String s = book.getTitle();
+        changeBookID.setText(Integer.toString(book.getID()));
+        changeBookTitle.setText(s);
+        changeBookAuthor.setText(book.getAuthor());
+        changeBookPublisher.setText(book.getPublisher());
+        changeBookPublishedDate.setText(Integer.toString(book.getPublishedDate()));
+        changeBookKeywords.setText(book.getKeywords().toString());
+        changeBookAccessable.setText(Boolean.toString(book.isAccessable()));*/
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("changeBookData.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 300, 400);
+            Scene scene = new Scene(fxmlLoader.load(), 400, 525);
             Stage stage = new Stage();
-            stage.setTitle("Delete Book");
+            stage.setTitle("Change Book Data");
             stage.setScene(scene);
             stage.show();
+
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
-
         }
     }
 
@@ -249,7 +313,7 @@ public class Controller {
                     book.setPublishedDate(Integer.parseInt(changeBookPublishedDate.getText()));
                 if(!changeBookKeywords.getText().isEmpty()){
                     String str = changeBookKeywords.getText();
-                    ArrayList<String> items = new ArrayList<>(Arrays.asList(str.split(", ")));
+                    ArrayList<String> items = new ArrayList<>(Arrays.asList(str.split(",")));
                     book.setKeywords(items);
                 }
                 if(!changeBookAccessable.getText().isEmpty())
@@ -257,6 +321,95 @@ public class Controller {
             }
         }
         bookList.writeXMLFile();
+        Stage stage = (Stage) buttonChangeBook.getScene().getWindow();
+        stage.close();
     }
 
+    public void addUser(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("addUser.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 349, 367);
+            Stage stage = new Stage();
+            stage.setTitle("Add new User");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+
+    }
+
+    public void addUserButton(ActionEvent actionEvent) {
+        User user = new User();
+        user.setId(userList.size());
+        user.setName(addUserName.getText());
+        user.setAddress(addUserAddress.getText());
+        user.setEmail(addUserEmail.getText());
+        user.setPhone(Integer.parseInt(addUserPhone.getText()));
+        userList.addUserToList(user);
+        userList.writeXMLFile();
+        Stage stage = (Stage) buttonAddUser.getScene().getWindow();
+        stage.close();
+    }
+
+    public void changeUser(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("changeUser.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 398, 466);
+            Stage stage = new Stage();
+            stage.setTitle("Add new User");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void changeUserButton(ActionEvent actionEvent){
+        for(User user: userList.returnList()){
+            if(user.getId() == Integer.parseInt(changeUserID.getText())){
+                if(!changeUserName.getText().isEmpty())
+                    user.setName(changeUserName.getText());
+                if(!changeUserAddress.getText().isEmpty())
+                    user.setAddress(changeUserAddress.getText());
+                if(!changeUserEmail.getText().isEmpty())
+                    user.setEmail(changeUserEmail.getText());
+                if(!changeUserPhone.getText().isEmpty())
+                    user.setPhone(Integer.parseInt(changeUserPhone.getText()));
+            }
+        }
+        userList.writeXMLFile();
+        Stage stage = (Stage) buttonChangeUser.getScene().getWindow();
+        stage.close();
+    }
+
+    public void deleteUser(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("deleteUser.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 300, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Delete User");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void deleteUserButton(ActionEvent actionEvent){
+        int id = Integer.parseInt(deleteUserID.getText());
+        userList.deleteUserFromList(id);
+        userList.writeXMLFile();
+        Stage stage = (Stage) buttonDeleteUser.getScene().getWindow();
+        stage.close();
+    }
 }

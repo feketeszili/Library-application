@@ -27,6 +27,9 @@ public class UserList implements java.io.Serializable {
     public List<User> returnList(){
         return userList;
     }
+    public int size() {
+        return userList.size();
+    }
 
     public UserList() {
         User[] user = new User[20];

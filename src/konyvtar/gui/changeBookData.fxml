@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="525.0" prefWidth="392.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="konyvtar.gui.Controller">
+<AnchorPane prefHeight="525.0" prefWidth="392.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="konyvtar.gui.Controller">
    <children>
-      <Text fill="WHITE" layoutX="66.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Write here the books ID which you want to change" wrappingWidth="280.27734375" />
+      <Text fill="WHITE" layoutX="66.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Write here the books ID which you want to change. This won't change." wrappingWidth="280.27734375" />
       <TextField fx:id="changeBookID" layoutX="122.0" layoutY="60.0" promptText="ID" style="-fx-background-color: grey;" />
       <TextField fx:id="changeBookTitle" layoutX="122.0" layoutY="102.0" promptText="Title" style="-fx-background-color: grey;" />
       <TextField fx:id="changeBookAuthor" layoutX="122.0" layoutY="144.0" promptText="Author" style="-fx-background-color: grey;" />
@@ -17,6 +15,6 @@
       <TextField fx:id="changeBookPublishedDate" layoutX="122.0" layoutY="238.0" promptText="Published Date" style="-fx-background-color: grey;" />
       <TextField fx:id="changeBookKeywords" layoutX="122.0" layoutY="285.0" promptText="Keywords" style="-fx-background-color: grey;" />
       <TextField fx:id="changeBookAccessable" layoutX="122.0" layoutY="335.0" promptText="Accessable: true/false" style="-fx-background-color: grey;" />
-      <Button layoutX="154.0" layoutY="444.0" mnemonicParsing="false" onAction="#changeBookDataButton" style="-fx-background-color: orange;" text="Change Data" />
+      <Button fx:id="buttonChangeBook" layoutX="154.0" layoutY="444.0" mnemonicParsing="false" onAction="#changeBookDataButton" style="-fx-background-color: orange;" text="Change Data" />
    </children>
 </AnchorPane>
