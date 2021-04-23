@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="271.0" prefWidth="334.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="konyvtar.gui.Controller">
+   <children>
+      <TextField fx:id="addLoanBookID" layoutX="92.0" layoutY="49.0" promptText="Book ID" style="-fx-background-color: grey;" />
+      <TextField fx:id="addLoanUserID" layoutX="92.0" layoutY="105.0" promptText="User ID" style="-fx-background-color: grey;" />
+      <TextField fx:id="addLoanLibrarianID" layoutX="92.0" layoutY="153.0" promptText="Librarian ID" style="-fx-background-color: grey;" />
+      <Button fx:id="buttonAddLoan" layoutX="132.0" layoutY="209.0" mnemonicParsing="false" onAction="#addLoanButton" style="-fx-background-color: orange;" text="New Loan" />
+   </children>
+</AnchorPane>

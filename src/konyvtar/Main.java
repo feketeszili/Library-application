@@ -23,7 +23,7 @@ public class Main extends Application {
             Controller controller = loader.getController();
             AnchorPane root = loader.load();
             Scene scene = new Scene(root, 1200, 600);
-            primaryStage.setTitle("JavaFX meets OpenCV");
+            primaryStage.setTitle("Library Application");
             primaryStage.setScene(scene);
             // show the GUI
             primaryStage.show();

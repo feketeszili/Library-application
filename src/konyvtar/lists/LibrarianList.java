@@ -22,6 +22,9 @@ public class LibrarianList implements java.io.Serializable {
     public List<Librarian> returnList(){
         return librarianList;
     }
+    public int size() {
+        return librarianList.size();
+    }
 
     public LibrarianList() {
         Librarian[] librarian = new Librarian[20];

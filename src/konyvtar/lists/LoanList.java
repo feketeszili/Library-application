@@ -32,6 +32,9 @@ public class LoanList implements java.io.Serializable{
     public List<Loan> returnList(){
         return loanList;
     }
+    public int size() {
+        return loanList.size();
+    }
 
     public LoanList(){
         this.loanList = new ArrayList<>();
