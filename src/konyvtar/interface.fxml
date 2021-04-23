@@ -29,9 +29,9 @@
             <MenuItem fx:id="loadLibrariansFromXMLIntoTableView" mnemonicParsing="false" onAction="#loadLibrariansFromXMLIntoTableView" text="Load Librarian from XML" />
             <MenuItem mnemonicParsing="false" text="Load Librarian from txt" />
             <MenuItem mnemonicParsing="false" text="Load Librarian from SQL" />
-            <MenuItem mnemonicParsing="false" text="Add Librarian" />
-            <MenuItem mnemonicParsing="false" text="Change Librarian" />
-            <MenuItem mnemonicParsing="false" text="Delete Librarian" />
+            <MenuItem mnemonicParsing="false" onAction="#addLibrarian" text="Add Librarian" />
+            <MenuItem mnemonicParsing="false" onAction="#changeLibrarian" text="Change Librarian" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteLibrarian" text="Delete Librarian" />
         </Menu>
         <Menu mnemonicParsing="false" text="Loan">
             <MenuItem fx:id="loadLoansFromXMLIntoTableViewloadLoansFromXMLIntoTableView" mnemonicParsing="false" onAction="#loadLoansFromXMLIntoTableView" text="Load Loan from XML" />

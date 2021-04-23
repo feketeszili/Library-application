@@ -116,7 +116,7 @@ public class Controller {
     public TextField changeLibrarianEmail;
     public TextField changeLibrarianPhone;
     public TextField changeLibrarianPassword;
-    public TextField deleteLibrarianrID;
+    public TextField deleteLibrarianID;
     //---------------------------------Loan Menu Items TextFields-----------------------------------
     //---------------------------------Buttons------------------------------------------------------
     @FXML
@@ -412,4 +412,95 @@ public class Controller {
         Stage stage = (Stage) buttonDeleteUser.getScene().getWindow();
         stage.close();
     }
+
+    public void addLibrarian(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("addLibrarian.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 349, 367);
+            Stage stage = new Stage();
+            stage.setTitle("Add new User");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void addLibrarianButton(ActionEvent actionEvent){
+        Librarian librarian = new Librarian();
+        librarian.setId(librarianList.size());
+        librarian.setName(addLibrarianName.getText());
+        librarian.setAddress(addLibrarianAddress.getText());
+        librarian.setEmail(addLibrarianEmail.getText());
+        librarian.setPhone(Integer.parseInt(addLibrarianPhone.getText()));
+        librarian.setPassword(addLibrarianPassword.getText());
+        librarianList.addLibrarianToList(librarian);
+        librarianList.writeXMLFile();
+        Stage stage = (Stage) buttonAddLibrarian.getScene().getWindow();
+        stage.close();
+    }
+
+    public void changeLibrarian(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("changeLibrarian.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 398, 466);
+            Stage stage = new Stage();
+            stage.setTitle("Change Librarian");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void changeLibrarianButton(ActionEvent actionEvent){
+        for(Librarian librarian: librarianList.returnList()){
+            if(librarian.getId() == Integer.parseInt(changeLibrarianID.getText())){
+                if(!changeLibrarianName.getText().isEmpty())
+                    librarian.setName(changeLibrarianName.getText());
+                if(!changeLibrarianAddress.getText().isEmpty())
+                    librarian.setAddress(changeLibrarianAddress.getText());
+                if(!changeLibrarianEmail.getText().isEmpty())
+                    librarian.setEmail(changeLibrarianEmail.getText());
+                if(!changeLibrarianPhone.getText().isEmpty())
+                    librarian.setPhone(Integer.parseInt(changeLibrarianPhone.getText()));
+                if(!changeLibrarianPassword.getText().isEmpty())
+                    librarian.setPassword(changeLibrarianPassword.getText());
+            }
+        }
+        librarianList.writeXMLFile();
+        Stage stage = (Stage) buttonChangeLibrarian.getScene().getWindow();
+        stage.close();
+    }
+
+    public void deleteLibrarian(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("deleteLibrarian.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 300, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Delete Librarian");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void deleteLibrarianButton(ActionEvent actionEvent){
+        int id = Integer.parseInt(deleteLibrarianID.getText());
+        librarianList.deleteLibrarianFromList(id);
+        librarianList.writeXMLFile();
+        Stage stage = (Stage) buttonDeleteLibrarian.getScene().getWindow();
+        stage.close();
+    }
+
 }
