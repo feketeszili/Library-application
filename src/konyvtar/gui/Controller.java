@@ -27,6 +27,7 @@ import konyvtar.person.Librarian;
 import konyvtar.person.User;
 
 
+import javax.swing.*;
 import java.awt.*;
 
 import java.io.IOException;
@@ -118,6 +119,11 @@ public class Controller {
     public TextField changeLibrarianPassword;
     public TextField deleteLibrarianID;
     //---------------------------------Loan Menu Items TextFields-----------------------------------
+    public TextField addLoanBookID;
+    public TextField addLoanUserID;
+    public TextField addLoanLibrarianID;
+    public TextField changeLoanID;
+    public TextField deleteLoanID;
     //---------------------------------Buttons------------------------------------------------------
     @FXML
     public Button buttonDeleteBook;
@@ -137,6 +143,12 @@ public class Controller {
     public Button buttonChangeLibrarian;
     @FXML
     public Button buttonDeleteLibrarian;
+    @FXML
+    public Button buttonAddLoan;
+    @FXML
+    public Button buttonChangeLoan;
+    @FXML
+    public Button buttonDeleteLoan;
 
     public void updateTableViewForBooks(ActionEvent actionEvent) {
         ObservableList<Book> books = FXCollections.observableArrayList(
@@ -503,4 +515,103 @@ public class Controller {
         stage.close();
     }
 
+    public void addLoan(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("addLoan.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 349, 367);
+            Stage stage = new Stage();
+            stage.setTitle("Add new Loan");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+
+    }
+
+    public void addLoanButton(ActionEvent actionEvent) {
+        Loan loan = new Loan();
+        loan.setLoanID(loanList.size());
+        loan.setBookID(Integer.parseInt(addLoanBookID.getText()));
+        for (Book book : bookList.returnList()) {
+            if (book.getID() == loan.getLoanID()) {
+                book.setAccessable(false);
+                bookList.writeXMLFile();
+            }
+        }
+        loan.setUserID(Integer.parseInt(addLoanUserID.getText()));
+        loan.setLibrarianID(Integer.parseInt(addLoanLibrarianID.getText()));
+        loan.setLoanDate(LocalDate.now());
+        loan.setLoanDateExpires(loan.loanDate.plusWeeks(2));
+        loanList.addLoanToList(loan);
+        loanList.writeXMLFile();
+        Stage stage = (Stage) buttonAddLoan.getScene().getWindow();
+        stage.close();
+    }
+
+    public void changeLoan(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("changeLoan.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 349, 367);
+            Stage stage = new Stage();
+            stage.setTitle("Change Loan");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void changeLoanButton(ActionEvent actionEvent){
+        for(Loan loan: loanList.returnList()){
+            if(loan.getLoanID() == Integer.parseInt(changeLoanID.getText())){
+                loan.setLoanDateExpires(loan.loanDateExpires.plusWeeks(2));
+            }
+        }
+        loanList.writeXMLFile();
+        Stage stage = (Stage) buttonChangeLoan.getScene().getWindow();
+        stage.close();
+    }
+
+    public void deleteLoan(ActionEvent actionEvent){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("deleteLoan.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 300, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Delete Loan");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+
+        }
+    }
+
+    public void deleteLoanButton(ActionEvent actionEvent){
+        int id = Integer.parseInt(deleteLoanID.getText());
+        for(Loan loan: loanList.returnList()){
+            if(loan.getLoanID() == id) {
+                int bookID = id;
+                for(Book book : bookList.returnList()){
+                    if(book.getID() == bookID) {
+                        book.setAccessable(true);
+                        bookList.writeXMLFile();
+                    }
+                }
+            }
+        }
+        loanList.deleteLoanFromList(id);
+        loanList.writeXMLFile();
+        Stage stage = (Stage) buttonDeleteLoan.getScene().getWindow();
+        stage.close();
+
+    }
 }

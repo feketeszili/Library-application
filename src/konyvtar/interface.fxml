@@ -37,9 +37,9 @@
             <MenuItem fx:id="loadLoansFromXMLIntoTableViewloadLoansFromXMLIntoTableView" mnemonicParsing="false" onAction="#loadLoansFromXMLIntoTableView" text="Load Loan from XML" />
             <MenuItem mnemonicParsing="false" text="Load Loan from txt" />
             <MenuItem mnemonicParsing="false" text="Load Loan from SQL" />
-            <MenuItem mnemonicParsing="false" text="Add Loan" />
-            <MenuItem mnemonicParsing="false" text="Change Loan" />
-            <MenuItem mnemonicParsing="false" text="Delete Loan" />
+            <MenuItem mnemonicParsing="false" onAction="#addLoan" text="Add Loan" />
+            <MenuItem mnemonicParsing="false" onAction="#changeLoan" text="Change Loan" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteLoan" text="Delete Loan" />
         </Menu>
         <Menu mnemonicParsing="false" text="About" />
     </MenuBar>
